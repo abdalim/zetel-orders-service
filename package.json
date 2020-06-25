@@ -1,0 +1,41 @@
+{
+  "name": "zetel-orders-service",
+  "version": "0.0.1",
+  "description": "Zetel app's orders service",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "start": "npm run db:migrate",
+    "start:development": "npm start && nodemon",
+    "docker:dev:start": "docker-compose up --force-recreate --build",
+    "docker:dev:stop": "docker-compose down --rmi all --remove-orphans"
+  },
+  "keywords": [
+    "zetel"
+  ],
+  "author": "github.com/abdalim",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.2.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.25"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.13",
+    "husky": "^4.2.5",
+    "nodemon": "^2.0.4",
+    "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
