@@ -54,3 +54,15 @@ export class Order {
   })
   public updatedAt: Date
 }
+
+export const getMockOrder = (): Order => {
+  const timestamp = new Date();
+  return {
+    id: 1,
+    status: OrderStatus.Created,
+    item: 'abcd',
+    price: 50,
+    createdAt: timestamp,
+    updatedAt: timestamp,
+  }
+}

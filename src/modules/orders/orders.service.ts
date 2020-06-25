@@ -24,8 +24,4 @@ export class OrdersService {
   async save(createOrderDto: CreateOrderDto): Promise<Order> {
     return this.ordersRepository.save(createOrderDto);
   }
-
-  async remove(id: number): Promise<void> {
-    await this.ordersRepository.delete(id);
-  }
 }
