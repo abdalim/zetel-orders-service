@@ -1,4 +1,4 @@
-export class SaveOrderDto {
-  firstName: string;
-  lastName: string;
+export class CreateOrderDto {
+  item: string
+  price: number
 }

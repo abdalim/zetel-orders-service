@@ -10,12 +10,12 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  create(@Body() saveOrderDto: OrdersDto.SaveOrderDto): Promise<Order> {
+  create(@Body() saveOrderDto: OrdersDto.CreateOrderDto): Promise<Order> {
     return this.ordersService.save(saveOrderDto);
   }
 
   @Put(':id')
-  update(@Body() saveOrderDto: OrdersDto.SaveOrderDto): Promise<Order> {
+  update(@Body() saveOrderDto: OrdersDto.CreateOrderDto): Promise<Order> {
     return this.ordersService.save(saveOrderDto);
   }
 

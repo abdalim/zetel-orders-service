@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { Order } from '../../entity/Order';
 
-import { SaveOrderDto } from './orders.dto'
+import { CreateOrderDto } from './orders.dto'
 
 @Injectable()
 export class OrdersService {
@@ -21,10 +21,8 @@ export class OrdersService {
     return this.ordersRepository.findOne(id);
   }
 
-  async save(saveOrderDto: SaveOrderDto): Promise<Order> {
-    const order = new Order();
-    // TODO: set order from DTO
-    return this.ordersRepository.save(order);
+  async save(createOrderDto: CreateOrderDto): Promise<Order> {
+    return this.ordersRepository.save(createOrderDto);
   }
 
   async remove(id: number): Promise<void> {
