@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common'
 
-import { Order } from '../../entity/Order';
+import { Order } from '../../entity/Order'
 
-import * as OrdersDto from './orders.dto';
-import { OrdersService } from './orders.service';
+import * as OrdersDto from './orders.dto'
+import { OrdersService } from './orders.service'
 
 @Controller('order')
 export class OrdersController {
@@ -11,21 +11,21 @@ export class OrdersController {
 
   @Post()
   create(@Body() createOrderDto: OrdersDto.CreateOrderDto): Promise<Order> {
-    return this.ordersService.save(createOrderDto);
+    return this.ordersService.save(createOrderDto)
   }
 
   @Put(':id')
   update(@Body() updateOrderDto: OrdersDto.CreateOrderDto): Promise<Order> {
-    return this.ordersService.save(updateOrderDto);
+    return this.ordersService.save(updateOrderDto)
   }
 
   @Get()
   findAll(): Promise<Order[]> {
-    return this.ordersService.findAll();
+    return this.ordersService.findAll()
   }
 
   @Get(':id')
   findOne(@Param('id') id: number): Promise<Order> {
-    return this.ordersService.findOne(id);
+    return this.ordersService.findOne(id)
   }
 }

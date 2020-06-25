@@ -56,7 +56,7 @@ export class Order {
 }
 
 export const getMockOrder = (): Order => {
-  const timestamp = new Date();
+  const timestamp = new Date()
   return {
     id: 1,
     status: OrderStatus.Created,

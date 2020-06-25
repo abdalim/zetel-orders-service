@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
-import { Order } from '../../entity/Order';
+import { Order } from '../../entity/Order'
 
 import { CreateOrderDto } from './orders.dto'
 
@@ -14,14 +14,14 @@ export class OrdersService {
   ) {}
 
   async findAll(): Promise<Order[]> {
-    return this.ordersRepository.find();
+    return this.ordersRepository.find()
   }
 
   async findOne(id: number): Promise<Order> {
-    return this.ordersRepository.findOne(id);
+    return this.ordersRepository.findOne(id)
   }
 
   async save(createOrderDto: CreateOrderDto): Promise<Order> {
-    return this.ordersRepository.save(createOrderDto);
+    return this.ordersRepository.save(createOrderDto)
   }
 }
