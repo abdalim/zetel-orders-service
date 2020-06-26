@@ -5,12 +5,15 @@ import { OrdersController } from './orders.controller'
 import { OrdersService } from './orders.service'
 import { getMockOrder, Order } from '../../entity/Order'
 import { Repository } from 'typeorm'
+import { PaymentsService } from '../payments/payments.service'
+import { VerifyResult } from '../payments/payments.dto'
 
 const mockOrder = getMockOrder()
 
 describe('Orders Service', () => {
   let ordersService: OrdersService
   let ordersRepository: Repository<Order>
+  let paymentsService: PaymentsService
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
@@ -24,12 +27,19 @@ describe('Orders Service', () => {
             find: jest.fn(),
           },
         },
+        {
+          provide: PaymentsService,
+          useValue: {
+            verify: jest.fn(),
+          },
+        },
       ],
       controllers: [OrdersController],
     }).compile()
 
     ordersService = moduleRef.get<OrdersService>(OrdersService)
     ordersRepository = moduleRef.get(getRepositoryToken(Order))
+    paymentsService = moduleRef.get<PaymentsService>(PaymentsService)
   })
 
   describe('findAll', () => {
@@ -61,6 +71,9 @@ describe('Orders Service', () => {
       delete saveParam.createdAt
       delete saveParam.updatedAt
       jest.spyOn(ordersRepository, 'save').mockResolvedValueOnce(mockOrder)
+      jest.spyOn(paymentsService, 'verify').mockResolvedValueOnce({
+        status: VerifyResult.Confirmed,
+      })
       expect(await ordersService.save(saveParam)).toBe(mockOrder)
     })
   })
