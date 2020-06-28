@@ -17,11 +17,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: pre-build checks
+    - name: Pre-build checks
       run: |
         npm ci
         npm test
-    - name: get aws
-      uses: chrislennon/action-aws-cli@v1.1
-    - run: docker build . --file Dockerfile --tag docker.pkg.github.com/abdalim/zetel-orders-service/zetel-orders-service:latest
-    - run: docker push docker.pkg.github.com/abdalim/zetel-orders-service/zetel-orders-service:latest
+    - name: Build, Tag, Push
+      uses: mattdavis0351/actions/docker-gpr@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        image-name: zetel-orders-service
+        tag: latest
