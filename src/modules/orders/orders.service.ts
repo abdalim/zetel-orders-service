@@ -19,7 +19,11 @@ export class OrdersService {
   ) {}
 
   async findAll(): Promise<Order[]> {
-    return this.ordersRepository.find()
+    return this.ordersRepository.find({
+      order: {
+        updatedAt: 'DESC',
+      },
+    })
   }
 
   async findOne(id: number): Promise<Order> {
