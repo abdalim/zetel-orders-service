@@ -26,7 +26,6 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         image-name: zetel-orders-service
-        tag: latest
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -35,8 +34,8 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            docker image pull docker.pkg.github.com/abdalim/zetel-orders-service/zetel-orders-service:latest
-            docker service update --image docker.pkg.github.com/abdalim/zetel-orders-service/zetel-orders-service:latest zetel_orders --force
+            docker image pull docker.pkg.github.com/abdalim/zetel-orders-service/zetel-orders-service:${{ github.sha }}
+            docker service update --image docker.pkg.github.com/abdalim/zetel-orders-service/zetel-orders-service:${{ github.sha }} zetel_orders --force
           host: ${{ secrets.HOST }}
           user: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY}}
