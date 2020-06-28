@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm'
 
 import { OrdersController } from './orders.controller'
 import { OrdersService } from './orders.service'
-import { getMockOrder, Order } from '../../entity/Order'
+import { getMockOrder, Order, OrderStatus } from '../../entity/Order'
 import { Repository } from 'typeorm'
 import { PaymentsService } from '../payments/payments.service'
 import { VerifyResult } from '../payments/payments.dto'
@@ -62,7 +62,7 @@ describe('Orders Service', () => {
     })
   })
 
-  describe('save', () => {
+  describe('create', () => {
     it('should return the order if successful', async () => {
       const saveParam = {
         ...mockOrder,
@@ -74,7 +74,17 @@ describe('Orders Service', () => {
       jest.spyOn(paymentsService, 'verify').mockResolvedValueOnce({
         status: VerifyResult.Confirmed,
       })
-      expect(await ordersService.save(saveParam)).toBe(mockOrder)
+      expect(await ordersService.create(saveParam)).toBe(mockOrder)
+    })
+  })
+
+  describe('cancel', () => {
+    it('should return the order if cancelled successfully', async () => {
+      const mockCancelledOrder = { ...mockOrder }
+      mockCancelledOrder.status = OrderStatus.Cancelled
+      jest.spyOn(ordersRepository, 'findOne').mockResolvedValueOnce(mockOrder)
+      jest.spyOn(ordersRepository, 'save').mockResolvedValueOnce(mockCancelledOrder)
+      expect(await ordersService.cancel(mockOrder.id)).toBe(mockCancelledOrder)
     })
   })
 })

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Put, Delete } from '@nestjs/common'
 
 import { Order } from '../../entity/Order'
 
@@ -11,12 +11,7 @@ export class OrdersController {
 
   @Post()
   create(@Body() createOrderDto: OrdersDto.CreateOrderDto): Promise<Order> {
-    return this.ordersService.save(createOrderDto)
-  }
-
-  @Put(':id')
-  update(@Body() updateOrderDto: OrdersDto.CreateOrderDto): Promise<Order> {
-    return this.ordersService.save(updateOrderDto)
+    return this.ordersService.create(createOrderDto)
   }
 
   @Get()
@@ -27,5 +22,10 @@ export class OrdersController {
   @Get(':id')
   findOne(@Param('id') id: number): Promise<Order> {
     return this.ordersService.findOne(id)
+  }
+
+  @Delete(':id')
+  cancel(@Param('id') id: number): Promise<Order> {
+    return this.ordersService.cancel(id)
   }
 }

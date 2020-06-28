@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm'
 
 import { OrdersController } from './orders.controller'
 import { OrdersService } from './orders.service'
-import { getMockOrder, Order } from '../../entity/Order'
+import { getMockOrder, Order, OrderStatus } from '../../entity/Order'
 import { PaymentsService } from '../payments/payments.service'
 import { VerifyResult } from '../payments/payments.dto'
 
@@ -47,22 +47,11 @@ describe('Orders Controller', () => {
         item: mockOrder.item,
         price: mockOrder.price,
       }
-      jest.spyOn(ordersService, 'save').mockResolvedValueOnce(mockOrder)
+      jest.spyOn(ordersService, 'create').mockResolvedValueOnce(mockOrder)
       jest.spyOn(paymentsService, 'verify').mockResolvedValueOnce({
         status: VerifyResult.Confirmed,
       })
       expect(await orderController.create(createParam)).toBe(mockOrder)
-    })
-  })
-
-  describe('PUT /order/:id', () => {
-    it('should update an order', async () => {
-      const updateParam = {
-        item: mockOrder.item,
-        price: mockOrder.price,
-      }
-      jest.spyOn(ordersService, 'save').mockResolvedValueOnce(mockOrder)
-      expect(await orderController.update(updateParam)).toBe(mockOrder)
     })
   })
 
@@ -78,6 +67,15 @@ describe('Orders Controller', () => {
     it('should get an order', async () => {
       jest.spyOn(ordersService, 'findOne').mockResolvedValueOnce(mockOrder)
       expect(await orderController.findOne(1)).toBe(mockOrder)
+    })
+  })
+
+  describe('DELETE /order/:id', () => {
+    it('should cancel an order', async () => {
+      const mockCancelledOrder = { ...mockOrder }
+      mockCancelledOrder.status = OrderStatus.Cancelled
+      jest.spyOn(ordersService, 'cancel').mockResolvedValueOnce(mockCancelledOrder)
+      expect(await orderController.cancel(mockOrder.id)).toBe(mockCancelledOrder)
     })
   })
 })
