@@ -1,7 +1,7 @@
 FROM node:14.4.0
-WORKDIR /usr/src/app
-COPY package*.json ./
+WORKDIR /app
+COPY . /app
 RUN npm install
-COPY . .
+RUN npm build
 EXPOSE ${PORT}
 CMD npm run start:${NODE_ENV}
