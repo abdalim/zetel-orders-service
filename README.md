@@ -1,3 +1,5 @@
+![CICD](https://github.com/abdalim/zetel-orders-service/workflows/CICD/badge.svg)
+
 # zetel-orders-service
 
 - Zetel app's orders service
@@ -25,10 +27,20 @@
 
 ### Setup
 
+- Duplicate `*.env.template` files,  eg `.env.template`, and fill in config details as env vars and remove the `.template` suffix
+
+- Create `db_data` folder in `db/ordersdb`
+
 - start Postgresql DB locally
 
 ```
 > npm run db:start
+```
+
+- run DB migration
+
+```
+> npm run env:load && npm run db:migrate
 ```
 
 - start service with hot-reload
@@ -37,7 +49,7 @@
 > npm run start:dev
 ```
 
-- start development
+- start coding
 
 ### Unit testing
 
