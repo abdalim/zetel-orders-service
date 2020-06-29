@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "db:start": "docker run --name ordersdb --network zetel-net -p 5432:5432 --env-file ./db/ordersdb/db.env --mount type=bind,source=\"$(pwd)\"/db/ordersdb/db_data,target=/var/lib/postgresql/data postgres:12",
+    "db:start": "docker run --name ordersdb --network zetel-net -p 5432:5432 --env-file ./db/ordersdb/db.env --mount type=bind,source=\"$(pwd)\"/db/ordersdb/db_data,target=/var/lib/postgresql/data -d postgres:12",
     "db:stop": "docker rm -f ordersdb",
     "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "docker:build": "docker build . --file Dockerfile --tag zetel-orders-service:latest",
