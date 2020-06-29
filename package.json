@@ -8,6 +8,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "db:start": "docker run --name ordersdb -p 5432:5432 --env-file ./.env.db postgres",
+    "db:stop": "docker rm -f ordersdb",
     "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "docker:start": "docker-compose up --force-recreate --build",
     "docker:stop": "docker-compose down --rmi all --remove-orphans",
