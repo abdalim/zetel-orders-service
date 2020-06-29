@@ -1,75 +1,106 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# zetel-orders-service
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Zetel app's orders service
+- Endpoints:
+  - GET /order =  get list of orders
+  - GET /order/:id = get details of an order
+  - POST /order/:id = create a new order
+  - DELETE /order/:id = cancel an order
 
-## Description
+## Details
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Tech
+  - Typescript
+  - NestJS
+  - Jest
+  - TypeORM
+  - Postgresql
+  - Docker
+  - eslint
+  - Prettier
+- Unit tests
+- Continuous deployment with Github Action and Github Package Registry
 
-## Installation
+## Development Guide
 
-```bash
-$ npm install
+### Setup
+
+- start Postgresql DB locally
+
+```
+> npm run db:start
 ```
 
-## Running the app
+- start service with hot-reload
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+> npm run start:dev
 ```
 
-## Test
+- start development
 
-```bash
-# unit tests
-$ npm run test
+### Unit testing
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+> npm run test
 ```
 
-## Support
+### Cleanup
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- stop DB
 
-## Stay in touch
+```
+> npm run db:stop
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Run as containers locally
 
-## License
+- create user defined bridge network to connect self-containers
 
-  Nest is [MIT licensed](LICENSE).
+```
+> npm run network:create
+```
+
+- start DB
+
+```
+> npm run docker:db:start
+```
+
+- build service
+
+```
+> npm run docker:build
+```
+
+- start service
+
+```
+> npm run docker:start
+```
+
+### Stop containers locally
+
+- stop service
+
+```
+> npm run docker:stop
+```
+
+- stop db
+
+```
+> npm run db:stop
+```
+
+- cleanup network
+
+```
+> npm run network:remove
+```
+
+## Future Improvements
+
+- End-to-end integration testing
+- Related infrastructure resources as codes under `/ops` directory
+
